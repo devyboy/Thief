@@ -11,7 +11,7 @@ int main()
 	int x = maxx/2;
 	int y = maxy/2;
 	noecho();
-	keypad(stdscr, TRUE)
+	keypad(stdscr, TRUE);
 	mvaddch(x, y, player);
 	while (true) {
 		ch = getch();
