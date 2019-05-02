@@ -70,7 +70,7 @@ void showEnemies(std::vector<Enemy> &elist) {
 
 void playerMove(int ch, Player *ply, std::vector<Enemy> &elist, int maxx, int maxy) {
 	for (std::vector<Enemy>::iterator it = elist.begin(); it != elist.end(); ++it) {
-		it.moveCloser();
+		it->moveCloser(ply->x, ply->y);
 	}
 	switch (ch) {
 		case KEY_UP:

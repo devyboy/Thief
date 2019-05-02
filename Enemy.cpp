@@ -18,7 +18,25 @@ class Enemy {
 			this->dead = false;
 		}
 
-		void moveCloser() {
-			
+		void moveCloser(int x, int y) {
+			if (this->x < x) {
+				this->x++;
+			}
+			else if (this->x > x) {
+				this->x--;
+			}
+			else if (this->y < y) {
+				this->y++;
+			}
+			else if (this->y > y) {
+				this->y--;
+			}
+			else {
+				erase();
+				refresh();
+				mvprintw(12, 45, "Game Over.");
+				getch();
+				exit(0);
+			}
 		}
 };
