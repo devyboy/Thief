@@ -8,8 +8,8 @@ int main() {
 
 // Variable declarations
 	int ch, maxx, maxy;
-	std::vector<Entity> elist;
-	std::vector<int> keyList = {KEY_UP, KEY_RIGHT, KEY_DOWN, KEY_LEFT, 113};
+	std::vector<Entity> elist; // list of enemies in the current room
+	std::vector<int> keyList = {KEY_UP, KEY_RIGHT, KEY_DOWN, KEY_LEFT, 113}; // list of available controls to use 
 	Entity *bat = new Entity('X', 10, 20, 10, 3);
 	Entity *goblin = new Entity('X', 30, 60, 20, 5);
 	Entity *orc = new Entity('X', 15, 80, 30, 6);
@@ -40,7 +40,7 @@ int main() {
 			mvprintw((cury/2), (curx/2) - 12, "Press any key when fixed");
 		}
 		else {
-			getmaxyx(stdscr, maxx, maxy); // get m
+			getmaxyx(stdscr, maxx, maxy); // get screen dimensions
 			playerMove(getch(), keyList, player, elist, maxx, maxy); // send the key input to the move function
 			drawBorders(maxx, maxy); // draws the borders again after they get erased
 		}
@@ -48,17 +48,17 @@ int main() {
 	return 0;
 }
 
-void showEnemies(std::vector<Entity> &elist) {
+void showEnemies(std::vector<Entity> &elist) { // Render the enemies on the screen
 	for (std::vector<Entity>::iterator it = elist.begin(); it != elist.end(); ++it) {
 		mvaddch(it->x, it->y, it->ico);
 	}
 }
 
 void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entity> &elist, int maxx, int maxy) {
-	std::vector<int>::iterator result = std::find(keyList.begin(), keyList.end(), ch);
-	if (result != keyList.end()) {	
+	std::vector<int>::iterator result = std::find(keyList.begin(), keyList.end(), ch); // Search the controls list for the key that was pressed and put in a variable
+	if (result != keyList.end()) {	// if the result is the end of the list, that means it wasn't in there
 		for (std::vector<Entity>::iterator it = elist.begin(); it != elist.end(); ++it) {
-			it->moveCloser(ply);
+			it->moveCloser(ply); // iterate over the list of enemies and use their move functions to move every turn
 		}
 		switch (ch) {
 			case KEY_UP:
@@ -115,14 +115,14 @@ void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entit
 	}
 }
 
-void drawBorders(int maxx, int maxy) {
+void drawBorders(int maxx, int maxy) { // iterate over every coordinate
 	for (int i = 0; i < maxx; i++) {
 		for (int j = 0; j < maxy; j++) {
-			if (i == 0 || i == maxx - 1) {
+			if (i == 0 || i == maxx - 1) { // if its at the very top or bottom, put a dash
 				mvaddch(i, j, '-');
 			}
 			else if (j == 0 || j == maxy - 1) {
-				mvaddch(i, j, '|');
+				mvaddch(i, j, '|'); // if its at the very left or right, put a bar
 			}
 		}
 	}

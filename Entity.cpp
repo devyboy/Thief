@@ -13,12 +13,11 @@ Entity::Entity(char ico, int x, int y, int hp, int dmg) {
 
 void Entity::moveCloser(Player *ply) {
 	if (this->x < ply->x) {
-		if (this->x + 1 == ply->x && this->y == ply->y) {
+		if (this->x + 1 == ply->x && this->y == ply->y) { // if the next move is going to be on top of the player, you lose
 			gameOver();
 		}
 		else {
 			this->x++;
-			mvaddch(this->y, this->x - 1, ' ');
 		}
 	}
 	else if (this->x > ply->x) {
@@ -27,7 +26,6 @@ void Entity::moveCloser(Player *ply) {
 		}
 		else {
 			this->x--;
-			mvaddch(this->y, this->x + 1, ' ');
 		}
 	}
 	else if (this->y < ply->y) {
@@ -35,7 +33,6 @@ void Entity::moveCloser(Player *ply) {
 			gameOver();
 		}
 		else {
-			mvaddch(this->y - 1, this->x, ' ');
 			this->y++;
 		}
 	}
@@ -44,25 +41,22 @@ void Entity::moveCloser(Player *ply) {
 			gameOver();
 		}
 		else {
-			mvaddch(this->y + 1, this->x, ' ');
 			this->y--;
 		}
 	}
 	else {
-		gameOver();
+		gameOver(); // should never really get here but just in case?
 	}
 }
 
 void Entity::gameOver() {
-	erase();
-	refresh();
-	mvprintw(10, 45, "Game Over");
+	erase(); // clear the screen
+	mvprintw(10, 45, "Game Over"); // print the stuff
 	mvprintw(12, 40, "Press Enter to quit");
 	while (true) {
-		if (getch() == 10) {
-			erase();
-			refresh();
-			exit(0);
+		if (getch() == 10) { // wait for the user to press Enter (key code 10)
+			erase(); // clear screen again for neatness
+			exit(0); // exit the game with code 0
 		} 
 	}
 }
