@@ -56,8 +56,8 @@ void Entity::moveCloser(Player *ply) {
 void Entity::gameOver() {
 	erase();
 	refresh();
-	mvprintw(11, 45, "Game Over");
-	mvprintw(13, 40, "Press Enter to quit");
+	mvprintw(10, 45, "Game Over");
+	mvprintw(12, 40, "Press Enter to quit");
 	while (true) {
 		if (getch() == 10) {
 			erase();

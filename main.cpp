@@ -9,6 +9,7 @@ int main() {
 // Variable declarations
 	int ch, maxx, maxy;
 	std::vector<Entity> elist;
+	std::vector<int> keyList = {KEY_UP, KEY_RIGHT, KEY_DOWN, KEY_LEFT, 113};
 	Entity *bat = new Entity('X', 10, 20, 10, 3);
 	Entity *goblin = new Entity('X', 30, 60, 20, 5);
 	Entity *orc = new Entity('X', 15, 80, 30, 6);
@@ -32,17 +33,16 @@ int main() {
 	while (true) {
 		int curx, cury; 
 		getmaxyx(stdscr, cury, curx); // get the current dimensions of the terminal
-		showEnemies(elist);
+		showEnemies(elist); // render the enemies on the screen
 		if (curx < 100 || cury < 25) { // if the terminal is smaller than 100 x 25, stop until fixed
 			erase();
 			mvprintw((cury/2) - 1, (curx/2) - 21, "Please make your terminal atleast 100 x 25");
 			mvprintw((cury/2), (curx/2) - 12, "Press any key when fixed");
 		}
 		else {
-			getmaxyx(stdscr, maxx, maxy); 
-			ch = getch();
-			playerMove(ch, player, elist, maxx, maxy);
-			drawBorders(maxx, maxy);
+			getmaxyx(stdscr, maxx, maxy); // get m
+			playerMove(getch(), keyList, player, elist, maxx, maxy); // send the key input to the move function
+			drawBorders(maxx, maxy); // draws the borders again after they get erased
 		}
 	}
 	return 0;
@@ -54,62 +54,64 @@ void showEnemies(std::vector<Entity> &elist) {
 	}
 }
 
-void playerMove(int ch, Player *ply, std::vector<Entity> &elist, int maxx, int maxy) {
-	for (std::vector<Entity>::iterator it = elist.begin(); it != elist.end(); ++it) {
-		it->moveCloser(ply);
-
-	}
-	switch (ch) {
-		case KEY_UP:
-			if (ply->x - 1 != 0) {
-				ply->x--;
+void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entity> &elist, int maxx, int maxy) {
+	std::vector<int>::iterator result = std::find(keyList.begin(), keyList.end(), ch);
+	if (result != keyList.end()) {	
+		for (std::vector<Entity>::iterator it = elist.begin(); it != elist.end(); ++it) {
+			it->moveCloser(ply);
+		}
+		switch (ch) {
+			case KEY_UP:
+				if (ply->x - 1 != 0) {
+					ply->x--;
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				else {
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				break;
+			case KEY_DOWN:
+				if (ply->x + 1 < maxx - 1) {
+					ply->x++;
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				else {
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				break;
+			case KEY_LEFT:
+				if (ply->y - 1 > 0) {
+					ply->y--;
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				else {
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				break;
+			case KEY_RIGHT:
+				if (ply->y + 1 < maxy - 1) {
+					ply->y++;
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				else {
+					erase();
+					mvaddch(ply->x, ply->y, ply->ico);
+				}
+				break;
+			case 113: // if Q is pressed, quit the game
 				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			else {
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			break;
-		case KEY_DOWN:
-			if (ply->x + 1 < maxx - 1) {
-				ply->x++;
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			else {
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			break;
-		case KEY_LEFT:
-			if (ply->y - 1 > 0) {
-				ply->y--;
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			else {
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			break;
-		case KEY_RIGHT:
-			if (ply->y + 1 < maxy - 1) {
-				ply->y++;
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			else {
-				erase();
-				mvaddch(ply->x, ply->y, ply->ico);
-			}
-			break;
-		case 113: // if Q is pressed, quit the game
-			erase();
-			refresh();
-			exit(0);
-		default:
-			break;
+				refresh();
+				exit(0);
+			default:
+				break;
+		}
 	}
 }
 
