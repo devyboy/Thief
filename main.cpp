@@ -5,7 +5,6 @@
 #include "main.h"
 
 int main() {
-
 // Variable declarations
 	int ch, maxx, maxy;
 	std::vector<Entity> elist; // list of enemies in the current room
@@ -27,7 +26,7 @@ int main() {
 	keypad(stdscr, TRUE); // allow non letter keys like arrows
 	Player *player = new Player('@', maxx/2, maxy/2, 10, 2);
 	mvaddch(player->x, player->y, player->ico); // place the player in the middle
-	drawBorders(maxx, maxy);
+	drawBorders(maxx, maxy, player);
 
 // Main game loop
 	while (true) {
@@ -40,9 +39,9 @@ int main() {
 			mvprintw((cury/2), (curx/2) - 12, "Press any key when fixed");
 		}
 		else {
-			getmaxyx(stdscr, maxx, maxy); // get screen dimensions
-			playerMove(getch(), keyList, player, elist, maxx, maxy); // send the key input to the move function
-			drawBorders(maxx, maxy); // draws the borders again after they get erased
+			getmaxyx(stdscr, maxx, maxy); // get screen dimensions (again)
+			playerMove(getch(), keyList, player, elist, maxx, maxy); // send the users key input to the move function
+			drawBorders(maxx, maxy, player); // draws the borders again after they get erased
 		}
 	}
 	return 0;
@@ -62,7 +61,7 @@ void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entit
 		}
 		switch (ch) {
 			case KEY_UP:
-				if (ply->x - 1 != 0) {
+				if (ply->x - 1 >= 0) {
 					ply->x--;
 					erase();
 					mvaddch(ply->x, ply->y, ply->ico);
@@ -84,7 +83,7 @@ void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entit
 				}
 				break;
 			case KEY_LEFT:
-				if (ply->y - 1 > 0) {
+				if (ply->y - 1 >= 0) {
 					ply->y--;
 					erase();
 					mvaddch(ply->x, ply->y, ply->ico);
@@ -95,7 +94,7 @@ void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entit
 				}
 				break;
 			case KEY_RIGHT:
-				if (ply->y + 1 < maxy - 1) {
+				if (ply->y + 1 < maxy) {
 					ply->y++;
 					erase();
 					mvaddch(ply->x, ply->y, ply->ico);
@@ -115,14 +114,18 @@ void playerMove(int ch, std::vector<int> keyList, Player *ply, std::vector<Entit
 	}
 }
 
-void drawBorders(int maxx, int maxy) { // iterate over every coordinate
+void drawBorders(int maxx, int maxy, Player *ply) { // iterate over every coordinate
 	for (int i = 0; i < maxx; i++) {
 		for (int j = 0; j < maxy; j++) {
-			if (i == 0 || i == maxx - 1) { // if its at the very top or bottom, put a dash
-				mvaddch(i, j, '-');
-			}
-			else if (j == 0 || j == maxy - 1) {
-				mvaddch(i, j, '|'); // if its at the very left or right, put a bar
+			if (i == maxx - 1 && j == 0) {
+				// For the sake of brevity...
+				std::string hp = "HP: " + std::to_string(ply->hp);
+				std::string gold = "   Gold: " + std::to_string(ply->gold);
+				std::string level = "   Level: " + std::to_string(ply->level);
+				std::string exp = "   Exp: " + std::to_string(ply->exp) + "/" + std::to_string(ply->expCap);
+				std::string HUD = hp + gold + level + exp;
+
+				mvaddstr(i, j, HUD.c_str());
 			}
 		}
 	}

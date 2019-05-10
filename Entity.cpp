@@ -56,6 +56,7 @@ void Entity::gameOver() {
 	while (true) {
 		if (getch() == 10) { // wait for the user to press Enter (key code 10)
 			erase(); // clear screen again for neatness
+			refresh();
 			exit(0); // exit the game with code 0
 		} 
 	}
