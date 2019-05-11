@@ -7,9 +7,10 @@ class Entity {
 		int y;
 		int hp;
 		int dmg;
+		int expGive;
 		bool dead;
 
-		Entity(char ico, int x, int y, int hp, int dmg);
+		Entity(char ico, int x, int y, int hp, int dmg, int expGive);
 
 		void moveCloser(Player *ply);
 		void gameOver();

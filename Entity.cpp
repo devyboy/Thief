@@ -2,12 +2,13 @@
 #include <ncurses.h>
 #include <stdlib.h>
 
-Entity::Entity(char ico, int x, int y, int hp, int dmg) {
+Entity::Entity(char ico, int x, int y, int hp, int dmg, int expGive) {
 	this->ico = ico;
 	this->x = x;
 	this->y = y;
 	this->hp = hp;
 	this->dmg = dmg;
+	this->expGive = expGive;
 	this->dead = false;
 }
 
