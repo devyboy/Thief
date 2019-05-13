@@ -1,5 +1,6 @@
 # thief
 ![screen1](screenshots/screen1.png?raw=true)
+![screen2](screenshots/screen2.png?raw=true)
 A dungeon-crawler in your terminal inspired by Rogue (1980).
 # How To Play
 Use the arrow keys to move your character and go from there
