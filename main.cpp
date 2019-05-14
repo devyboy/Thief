@@ -12,7 +12,7 @@ int main() {
 	Entity *bat = new Entity('X', 10, 20, 10, 3, 5);
 	Entity *goblin = new Entity('X', 30, 60, 20, 5, 10);
 	Entity *orc = new Entity('X', 15, 80, 30, 6, 15);
-	// elist.push_back(*bat);
+	elist.push_back(*bat);
 	// elist.push_back(*goblin);
 	// elist.push_back(*orc);
 
@@ -151,6 +151,7 @@ void showIntro(int maxx, int maxy) {
 	mvprintw((maxx/2) - 2, (maxy/2) - 31, line5);
 	mvprintw((maxx/2) - 1, (maxy/2) - 31, line6);
 	mvprintw((maxx/2), (maxy/2) - 31, line7);
+	
 	attron(A_BLINK);
 	mvprintw((maxx/2) + 5, (maxy/2) - 31, line8);
 	attroff(A_BLINK);
