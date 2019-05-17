@@ -54,38 +54,38 @@ void Entity::gameOver() {
 	int maxx, maxy;
 
 	// i love ASCII art okay.
-	const char* line1 = "     e@@@@@@@@@@@@@@@@@@@@";
-	const char* line2 = "  _@@@@@@@@@@@@@@@@@@@@@@@@@@";
-	const char* line3 = "_e@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
-    const char* line4 = "@@@@@*@@~~~~~~~~@@@.@@~~~~~~.@@e";
-    const char* line5 = "@ @@@@.@     . ..@@@@ .    . ..@";
-    const char* line6 = "@ @@@@.*   ... ..@@@@e.   . ...@";
-    const char* line7 = "@.*@@@@@eeeeeeee@@~ ~@@eeeeee@@@";     
-	const char* line8 = " @e.@@@@@@@@@@@@@@ | @@@@@@@@@'";
-	const char* line9 = "   @eeeeeee@@@@@@@[ : ]@@@@@'";
-    const char* line10 = "     ***@@@@@@@@::@::@@@@@";
-    const char* line11 = "         @@@@@@@@@@@@@@@@@";
-    const char* line12 = "         v@@@@@@@@@v@@@v@@";
-	const char* line13 = "          V  VV  V  V    V";
+	const char* line1 = "	       _______";
+	const char* line2 = "     .-*       *-.";
+	const char* line3 = "    /             \\";
+    const char* line4 = "   |               |";
+    const char* line5 = "   |,  .-.   .-.  ,|";
+    const char* line6 = "   | )(__/   \\__)( |";
+    const char* line7 = "   |/     / \\     \\|";     
+	const char* line8 = "   (_     ^^^     _)";
+	const char* line9 = "    \\__|IIIIIII|__/";
+    const char* line10 = "     | \\IIIIIII/ |";
+    const char* line11 = "     \\           /";
+    const char* line12 = "      `---------`";
+
 
 	getmaxyx(stdscr, maxx, maxy);
 	erase(); // clear the screen
-	mvprintw(20, 45, "You Died"); // print the stuff
-	mvprintw(22, 40, "Press Enter to quit");
+
+	mvprintw(maxx/9, (maxy/2) - 4, "YOU DIED"); // print the stuff
+	mvprintw(maxx/1.25, (maxy/2) - 9, "PRESS [ENTER] TO QUIT");
 	
-	mvprintw((maxx/2) - 9, (maxy/2) - 18, line1);
-	mvprintw((maxx/2) - 8, (maxy/2) - 18, line2);
-	mvprintw((maxx/2) - 7, (maxy/2) - 18, line3);
-	mvprintw((maxx/2) - 6, (maxy/2) - 18, line4);
-	mvprintw((maxx/2) - 5, (maxy/2) - 18, line5);
-	mvprintw((maxx/2) - 4, (maxy/2) - 18, line6);
-	mvprintw((maxx/2) - 3, (maxy/2) - 18, line7);
-	mvprintw((maxx/2) - 2, (maxy/2) - 18, line8);
-	mvprintw((maxx/2) - 1, (maxy/2) - 18, line9);
-	mvprintw((maxx/2), (maxy/2) - 18, line10);
-	mvprintw((maxx/2) + 1, (maxy/2) - 18, line11);
-	mvprintw((maxx/2) + 2, (maxy/2) - 18, line12);
-	mvprintw((maxx/2) + 3, (maxy/2) - 18, line13);
+	mvprintw((maxx/2) - 7, (maxy/2) - 11, line1);
+	mvprintw((maxx/2) - 6, (maxy/2) - 11, line2);
+	mvprintw((maxx/2) - 5, (maxy/2) - 11, line3);
+	mvprintw((maxx/2) - 4, (maxy/2) - 11, line4);
+	mvprintw((maxx/2) - 3, (maxy/2) - 11, line5);
+	mvprintw((maxx/2) - 2, (maxy/2) - 11, line6);
+	mvprintw((maxx/2) - 1, (maxy/2) - 11, line7);
+	mvprintw((maxx/2), (maxy/2) - 11, line8);
+	mvprintw((maxx/2) + 1, (maxy/2) - 11, line9);
+	mvprintw((maxx/2) + 2, (maxy/2) - 11, line10);
+	mvprintw((maxx/2) + 3, (maxy/2) - 11, line11);
+	mvprintw((maxx/2) + 4, (maxy/2) - 11, line12);
 	
 	while (true) {
 		if (getch() == 10) { // wait for the user to press Enter (key code 10)

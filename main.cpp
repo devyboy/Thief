@@ -9,13 +9,12 @@ int main() {
 	int ch, maxx, maxy;
 	std::vector<Entity> elist; // list of enemies in the current room
 	std::vector<int> keyList = {KEY_UP, KEY_RIGHT, KEY_DOWN, KEY_LEFT, 113}; // list of available controls to use 
-	Entity *bat = new Entity('X', 10, 20, 10, 3, 5);
-	Entity *goblin = new Entity('X', 30, 60, 20, 5, 10);
-	Entity *orc = new Entity('X', 15, 80, 30, 6, 15);
+	Entity *bat = new Entity('B', 10, 20, 10, 3, 5);
+	Entity *goblin = new Entity('G', 30, 60, 20, 5, 10);
+	Entity *orc = new Entity('O', 15, 80, 30, 6, 15);
 	elist.push_back(*bat);
-	// elist.push_back(*goblin);
-	// elist.push_back(*orc);
-
+	elist.push_back(*goblin);
+	elist.push_back(*orc);
 
 // Window Settings
 	initscr(); // start the screen
@@ -142,7 +141,7 @@ void showIntro(int maxx, int maxy) {
 	const char* line5 = "     888        888     888    888    888           888";
 	const char* line6 = "     888        888     888    888    888           888";
 	const char* line7 = "    o888o      o888o   o888o  o888o  o888ooooood8  o888o";
-	const char* line8 = "                    Press Enter to start";
+	const char* line8 = "                    PRESS [ENTER] TO START";
 
 	mvprintw((maxx/2) - 6, (maxy/2) - 31, line1);
 	mvprintw((maxx/2) - 5, (maxy/2) - 31, line2);
@@ -151,11 +150,8 @@ void showIntro(int maxx, int maxy) {
 	mvprintw((maxx/2) - 2, (maxy/2) - 31, line5);
 	mvprintw((maxx/2) - 1, (maxy/2) - 31, line6);
 	mvprintw((maxx/2), (maxy/2) - 31, line7);
-	
-	attron(A_BLINK);
-	mvprintw((maxx/2) + 5, (maxy/2) - 31, line8);
-	attroff(A_BLINK);
 
+	mvprintw((maxx/2) + 5, (maxy/2) - 31, line8);
 
 	while (true) {
 		if (getch() == 10) {
