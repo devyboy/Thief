@@ -13,8 +13,8 @@ int main() {
 	Entity *goblin = new Entity('G', 30, 60, 20, 5, 10);
 	Entity *orc = new Entity('O', 15, 80, 30, 6, 15);
 	elist.push_back(*bat);
-	elist.push_back(*goblin);
-	elist.push_back(*orc);
+	//elist.push_back(*goblin);
+	//elist.push_back(*orc);
 
 // Window Settings
 	initscr(); // start the screen
@@ -119,6 +119,7 @@ void drawBorders(int maxx, int maxy, Player *ply) { // iterate over every coordi
 	for (int i = 0; i < maxx; i++) {
 		for (int j = 0; j < maxy; j++) {
 			if (i == maxx - 1 && j == 0) {
+				
 				// For the sake of brevity...
 				std::string hp = "HP: " + std::to_string(ply->hp);
 				std::string gold = "   Gold: " + std::to_string(ply->gold);
@@ -133,6 +134,7 @@ void drawBorders(int maxx, int maxy, Player *ply) { // iterate over every coordi
 }
 
 void showIntro(int maxx, int maxy) {
+	std::string name;
 	// preformatted strings didn't work for some reason
 	const char* line1 = "ooooooooooooo  ooooo   ooooo  ooooo  oooooooooooo  oooooooooooo";
 	const char* line2 = "     888       `888'   `888'  `888'  `888'         `888'     `";
@@ -150,7 +152,6 @@ void showIntro(int maxx, int maxy) {
 	mvprintw((maxx/2) - 2, (maxy/2) - 31, line5);
 	mvprintw((maxx/2) - 1, (maxy/2) - 31, line6);
 	mvprintw((maxx/2), (maxy/2) - 31, line7);
-
 	mvprintw((maxx/2) + 5, (maxy/2) - 31, line8);
 
 	while (true) {

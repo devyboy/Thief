@@ -13,5 +13,6 @@ class Entity {
 		Entity(char ico, int x, int y, int hp, int dmg, int expGive);
 
 		void moveCloser(Player *ply);
+		void combat(Player *ply);
 		void gameOver();
 };
