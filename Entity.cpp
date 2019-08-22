@@ -63,7 +63,7 @@ void Entity::gameOver() {
 	int maxx, maxy;
 
 	// i love ASCII art okay.
-	const char* line1 = "	      _______";
+	const char* line1 = "	     _______";
 	const char* line2 = "     .-*       *-.";
 	const char* line3 = "    /             \\";
     const char* line4 = "   |               |";
